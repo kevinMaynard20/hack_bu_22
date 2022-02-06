@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   primary: Colors.blueAccent, // background
                   onPrimary: Colors.white, // foreground
                 ),
-                onPressed: () {},
+                onPressed: () => {searchAndNavigate()},
                 child: Text("Tap to reach out!/Refresh\u{1f44b}",
                     style: TextStyle(
                       fontSize: 10,
