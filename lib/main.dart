@@ -28,8 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late Position currentPosition;
 
-  Set<Marker> _markers = HashSet<Marker>(); //hashset 0_0 cool taylor
-
+  Set<Marker> _markers = HashSet<Marker>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +46,23 @@ class _MyHomePageState extends State<MyHomePage> {
             initialCameraPosition: CameraPosition(
                 target: LatLng(42.089, -75.969297), // arbitrary location
                 zoom: 16),
+          ),
+          Positioned(
+            top: 40.0,
+            right: 10.0,
+            left: 200.0,
+            height: 40.0,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blueAccent, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+                onPressed: () {},
+                child: Text("Tap to reach out!/Refresh\u{1f44b}",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white,
+                    ))),
           ),
           Positioned(
               bottom: 40.0,
@@ -160,27 +176,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void onButtonPressy() {
-    Column(
-      children: <Widget>[
-        CustomPaint(
-          child: Container(
-            width: 300,
-            height: 600,
-            color: Colors.white,
-          ),
-        ),
-        Text('Deliver features faster'),
-        Text('Craft beautiful UIs'),
-        Expanded(
-          child: FittedBox(
-            fit: BoxFit.contain, // otherwise the logo will be tiny
-            child: FlutterLogo(),
-          ),
-        ),
-      ],
-    );
+  searchAndNavigate() async {
+    //p much google's implementation of Geolocator
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    var coords = [position.latitude, position.longitude];
+
+    //await generatePins(coords);
   }
+
+// generatePins(List<double> coords) async{
+//     var locations = await APIHandler.getLocationInfo(coords);
+//     for(var i = 0; i < 8; i++){
+//     print(locations[i]);
+//     setState((){
+//       _markers.add(
+//         Marker(
+//           markerId: MarkerId(locations[i].getName() + locations[i].getLat().toString()),
+//           position: LatLng( locations[i].getLat(), locations[i].getLon()),
+//           infoWindow: InfoWindow(
+//             title: locations[i].getName(),
+//             snippet: locations[i].getDescript(),
+//           ),
+//         ),
+//       );
+//     });
+//     }
 
   void onMapCreated(controller) {
     setState(() {
