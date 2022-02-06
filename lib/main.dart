@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'package:geocoder/geocoder.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -47,94 +47,47 @@ class _MyHomePageState extends State<MyHomePage> {
                 zoom: 15),
           ),
           Positioned(
-              top: 30.0,
+              bottom: 60.0,
               right: 15.0,
               left: 15.0,
-              child: Container(
-                  //
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.yellow[100],
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red, // background
-                      onPrimary: Colors.white, // foreground
-                    ),
-                    onPressed: () {},
-                    child: Text('Add Event'),
-                  )
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+                onPressed: () {},
+                child: Text('Tap to ask for a Hand!'),
+              )
 
-                  // child: TextField(
+              // child: TextField(
 
-                  //     decoration: InputDecoration(
-                  //         hintText: 'Enter location here...',
-                  //         border: InputBorder.none,
+              //     decoration: InputDecoration(
+              //         hintText: 'Enter location here...',
+              //         border: InputBorder.none,
 
-                  //         contentPadding: EdgeInsets.only(left: 15, top: 15),
+              //         contentPadding: EdgeInsets.only(left: 15, top: 15),
 
-                  //         suffixIcon: IconButton(
-                  //           icon: Icon(Icons.search), // adds search icon
-                  //           onPressed:
-                  //               searchAndNavigate, // calls the class that moves and
-                  //           iconSize: 30,
-                  //         )),
+              //         suffixIcon: IconButton(
+              //           icon: Icon(Icons.search), // adds search icon
+              //           onPressed:
+              //               searchAndNavigate, // calls the class that moves and
+              //           iconSize: 30,
+              //         )),
 
-                  //     onChanged: (val) {
-                  //       setState(() {
-                  //         search = val;
-                  //       });
+              //     onChanged: (val) {
+              //       setState(() {
+              //         search = val;
+              //       });
 
-                  ))
+              )
         ],
       ),
     );
   }
 
-//   searchAndNavigate() {
-// //p much google's implementation of Geolocator
-//     Geocoder.local.findAddressesFromQuery(search).then((result) {
-// //   //     //Generates palcemarker from 'search'
-//         mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-//             target: LatLng(
-//                 result[0].position.latitude, result[0].position.longitude), //
-//             zoom: 10.0)));
-//  }
-// }
-
   void onMapCreated(controller) {
     setState(() {
       mapController = controller;
-    });
-  }
-
-  _getAddressFromLatLng() async {
-    try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-          currentPosition.latitude, currentPosition.longitude);
-
-      Placemark place = placemarks[0];
-
-      setState(() {
-        search = "${place.locality}, ${place.postalCode}, ${place.country}";
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  _getCurrentLocation() {
-    Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best,
-            forceAndroidLocationManager: true)
-        .then((Position position) {
-      setState(() {
-        currentPosition = position;
-        _getAddressFromLatLng();
-      });
-    }).catchError((e) {
-      print(e);
     });
   }
 }
