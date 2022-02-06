@@ -23,7 +23,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late GoogleMapController mapController;
-
+  final time = TextEditingController();
+  final descrip = TextEditingController();
+  final date = TextEditingController();
+  final title = TextEditingController();
+  late Position possy;
   late String search;
 
   late Position currentPosition;
@@ -94,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       padding: EdgeInsets.all(25),
                                     ),
                                     TextField(
+                                      controller: title,
                                       style: TextStyle(),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
@@ -104,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         padding: EdgeInsets.fromLTRB(
                                             25, 10, 25, 10)),
                                     TextField(
+                                      controller: descrip,
                                       style: TextStyle(),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
@@ -114,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         padding: EdgeInsets.fromLTRB(
                                             25, 10, 25, 10)),
                                     TextField(
+                                      controller: date,
                                       style: TextStyle(),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
@@ -124,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         padding: EdgeInsets.fromLTRB(
                                             25, 10, 25, 10)),
                                     TextField(
+                                      controller: time,
                                       style: TextStyle(),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
@@ -136,7 +144,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Colors.green[700], // background
                                         onPrimary: Colors.white, // foreground
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () async => {
+                                        possy =
+                                            await Geolocator.getCurrentPosition(
+                                                desiredAccuracy:
+                                                    LocationAccuracy.high),
+                                        // method(possy.latitude.toString(),possy.longitude.toString(), date.text, time.text, title.text, descrip.text);
+                                      },
                                       child: Text("Submit"),
                                     )
                                   ],
