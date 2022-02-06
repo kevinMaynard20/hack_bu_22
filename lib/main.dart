@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
@@ -16,9 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  _MyHomePageState createState() =>
-      _MyHomePageState(); //Kind of works how suppliers do in java
-} // most of this stuff on top is p basic
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
 class _MyHomePageState extends State<MyHomePage> {
   late GoogleMapController mapController;
@@ -31,12 +32,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // reformatted most of this based off of what
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('LendaHand'),
-        backgroundColor: Colors.green[700],
+        title: Text(
+          'LendaHand \u{1f44b}',
+          style: TextStyle(fontSize: 25),
+        ),
+        backgroundColor: Color.fromARGB(255, 0, 103, 71),
       ),
       body: Stack(
         // layers widgets in reverse order
@@ -44,20 +46,93 @@ class _MyHomePageState extends State<MyHomePage> {
           GoogleMap(
             initialCameraPosition: CameraPosition(
                 target: LatLng(42.089, -75.969297), // arbitrary location
-                zoom: 15),
+                zoom: 16),
           ),
           Positioned(
-              bottom: 60.0,
-              right: 15.0,
-              left: 15.0,
+              bottom: 40.0,
+              right: 10.0,
+              left: 10.0,
+              height: 70.0,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red, // background
-                  onPrimary: Colors.white, // foreground
-                ),
-                onPressed: () {},
-                child: Text('Tap to ask for a Hand!'),
-              )
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green[700], // background
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: () => {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40)),
+                                elevation: 16,
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Text(
+                                          'Fill out this Form For A Helping      \t\t  Hand!\u{1f60E}\u{1f44b}\u{1f60E}',
+                                          style: TextStyle(fontSize: 16.0)),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(25),
+                                    ),
+                                    TextField(
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter Title...',
+                                      ),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            25, 10, 25, 10)),
+                                    TextField(
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter Brief Description',
+                                      ),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            25, 10, 25, 10)),
+                                    TextField(
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Date(Format xx/xx/xx)',
+                                      ),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            25, 10, 25, 10)),
+                                    TextField(
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Time(Format xx:xx:xx)',
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.green[700], // background
+                                        onPrimary: Colors.white, // foreground
+                                      ),
+                                      onPressed: () {},
+                                      child: Text("Submit"),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      },
+                  child: Text("Tap Here To Ask For A Hand!\u{1f44b}",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      )))
 
               // child: TextField(
 
@@ -82,6 +157,28 @@ class _MyHomePageState extends State<MyHomePage> {
               )
         ],
       ),
+    );
+  }
+
+  void onButtonPressy() {
+    Column(
+      children: <Widget>[
+        CustomPaint(
+          child: Container(
+            width: 300,
+            height: 600,
+            color: Colors.white,
+          ),
+        ),
+        Text('Deliver features faster'),
+        Text('Craft beautiful UIs'),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.contain, // otherwise the logo will be tiny
+            child: FlutterLogo(),
+          ),
+        ),
+      ],
     );
   }
 
